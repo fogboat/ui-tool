@@ -21,7 +21,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "build-doc": "STORYBOOK_TELEMETRY_DEBUG=1 && storybook build",
-    "release":"pnpm run build --parallel && pnpm run build-doc --parallel"
+    "release":"pnpm run build & pnpm run build-doc"
   },
   "peerDependencies": {
     "react": ">=17.0.0",
