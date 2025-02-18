@@ -1,0 +1,33 @@
+
+name: 发布
+
+on:
+  release:
+    types: [published]
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: 使用Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+      - name: 安装依赖
+        run: pnpm install
+      - name: 打包
+        run: 
+          pnpm install build
+      - name: 发布
+        run: npm publish
+        # env:
+        #   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          
