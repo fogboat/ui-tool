@@ -6,7 +6,8 @@ on:
     types: [published]
     branches: [ "main" ]
   workflow_dispatch:
-
+permissions:
+  contents: write
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -17,7 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: 使用Node.js ${{ matrix.node-version }}
+      - name: 安装 Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
