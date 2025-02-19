@@ -1,14 +1,13 @@
-# 开发
+# ui-tool 
 
-```sh
-pnpm i
-pnpm dev
+headless ui tool for
+
+## Usage
+
+```bash
+pnpm add @fogboat/ui-tool
 ```
-构建文档
-```sh
-pnpm build-doc
-```
-构建组件
-```sh
-pnpm build
-```
+
+## Documentation
+
+See https://fogboat.github.io/ui-tool
