@@ -1,5 +1,5 @@
 {
-  "name": "@fog/ui-tool",
+  "name": "@fogboat/ui-tool",
   "version": "0.0.1",
   "type": "module",
   "description": "Headless UI tool for react",
@@ -60,11 +60,11 @@
   },
   "private":false,
   "author": "雾舟",
-  "homepage": "https://github.com/fog-boat/ui-tool",
-  "bugs": "https://github.com/facebook/react/issues",
+  "homepage": "https://github.com/fogboat/ui-tool",
+  "bugs": "https://github.com/fogboat/ui-tool/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fog-boat/ui-tool.git"
+    "url": "https://github.com/fogboat/ui-tool.git"
   },
   "eslintConfig": {
     "extends": [
