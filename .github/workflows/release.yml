@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     
     strategy:
@@ -29,23 +29,17 @@ jobs:
         run: pnpm install
       - name: 打包
         run: pnpm run release
-  npm-publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: 发布
-        run: npm publish
-        env: 
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-  deploy-doc:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: 部署doc
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with: 
           branch: gh-pages
           folder: storybook-static
+      - name: 发布
+        run: npm publish
+        env: 
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+     
       
        
           
