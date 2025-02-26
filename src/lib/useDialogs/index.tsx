@@ -1,24 +1,29 @@
 import { createContext, useCallback, useId, useRef, useState, useMemo, ReactNode, ComponentType, useContext } from "react";
+import { createPortal } from "react-dom";
+
 /**
  * 自定义组件内部Props
+ *
+ * @template [P=undefined] 组件payload类型
+ * @template [R=void] 组件关闭时获取的值类型
  */
 export interface DialogProps<P = undefined, R = void> {
     /**
-     * 组件使用参数
+     * 组件自定义使用参数
      */
     payload: P;
     /**
-     * 是否显示
+     * 控制组件是否显示
      */
     open: boolean;
     /**
-     * resolve方式关闭对话框
-     * @param result 对话框关闭后dialog promise resolve结果
+     * promise.resolve方式关闭对话框
+     * @param result 传入关闭对话框 promise.resolve结果
      */
     resolve: (result?: R) => void;
     /**
-    * reject方式关闭对话框
-    * @param result 对话框关闭后dialog  promise reject结果
+    * promise.reject方式关闭对话框
+    * @param result 传入关闭对话框  promise.reject结果
     */
     reject: (result?: any) => void;
 }
@@ -62,6 +67,11 @@ interface DialogStackEntry<P, R> {
 
 export interface DialogProviderProps {
     children?: ReactNode;
+
+    /**
+     * 关闭后组件卸载时间ms 给关闭动画使用
+     * @default 1000
+     */
     unmountAfter?: number;
 }
 
@@ -143,44 +153,51 @@ export function DialogsProvider(props: DialogProviderProps) {
     return (
         <DialogsContext.Provider value={contextValue}>
             {children}
-            {stack.map(({ key, open, Component, payload, promise }) => (
-                <Component
-                    key={key}
-                    payload={payload}
-                    open={open}
-                    resolve={(result) => {
-                        closeDialog(promise, true, result);
-                    }}
-                    reject={(result) => {
-                        closeDialog(promise, false, result);
-                    }}
+            {createPortal(
+                stack.map(({ key, open, Component, payload, promise }) => (
+                    <Component
+                        key={key}
+                        payload={payload}
+                        open={open}
+                        resolve={(result) => {
+                            closeDialog(promise, true, result);
+                        }}
+                        reject={(result) => {
+                            closeDialog(promise, false, result);
+                        }}
 
 
-                />
-            ))}
+                    />
+                )),
+                document.body
+            )}
         </DialogsContext.Provider>
     );
 }
 
 type PartialKey<T, P, E extends keyof T = Extract<keyof T, keyof P>> = { [K in E]?: T[K] } & Omit<T, E>;
-type UseDialogsOpen<P, R, M> = <U extends P> (payload: PartialKey<U, M>) => Promise<R>
+type UseDialogsOpen<P, R, M> = <U extends P> (payload: M extends void ? P : PartialKey<U, M>) => Promise<R>
 export interface DialogHook<P, R, M> {
     open: UseDialogsOpen<P, R, M>;
     close: CloseDialog;
 }
 
 
+
+
 /**
- * 
- * @param Component dialog组件
- * @param mergePayload 浅合并参数 
- * @returns 
+ * 同步写法方式调用对话框hook
+ * @template [P={}] 
+ * @template [R=undefined] 
+ * @template [M=Partial<P>] 
+ * @param {DialogComponent<P, R>} Component dialog组件 props参数需要实现DialogProps
+ * @param {?M} [mergePayload] 传入dialog组件props.payload中 浅合并
  */
 export function useDialogs<P = {}, R = undefined, M = Partial<P>>(Component: DialogComponent<P, R>, mergePayload?: M): DialogHook<P, R, M> {
     const { open: openDialog, close } = useContext(DialogsContext)!;
 
-    const open = useCallback(
-        async <U extends P>(payload: PartialKey<U, M>) => {
+    const open = useCallback<UseDialogsOpen<P, R, M>>(
+        async (payload) => {
             return openDialog<P, R>(Component, (mergePayload ? { ...mergePayload, ...payload } : payload) as P)
         },
         [openDialog, Component]
