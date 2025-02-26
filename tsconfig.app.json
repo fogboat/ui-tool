@@ -23,8 +23,10 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": "./",
     "paths": {
-      "$/*": ["./src/lib/*"]
+      "@fogboat/ui-tool": ["./src/lib"],
+      "@fogboat/ui-tool/*": ["./src/lib/*"],
+      "@/*": ["./src/*"],
     } 
   },
-  "include": ["src", "src/lib/useDialogs", "src/lib/main.ts"]
+  "include": ["src", "src/lib/useDialogs", "src/lib/index.ts"]
 }

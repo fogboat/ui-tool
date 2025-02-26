@@ -1,0 +1,34 @@
+import { Canvas, Meta, Title, Story, Controls,ArgTypes  } from '@storybook/blocks';
+import stories from './stories';
+import ArgTable from "@/autoArgs"
+
+<Meta of={stories} />
+# 介绍
+实现NoticeProps的组件集成任意UI组件库并且消息通知可以在非hook中直接调用
+
+#  Notifier
+`new Notifier(component, options?:NotifierOptions)`
+
+component组件props需要继承NoticeProps
+
+## NoticeProps
+<ArgTable  path="@fogboat/ui-tool/Notifications" type="NoticeProps"  />
+
+## NotifierOptions
+<ArgTable  path="@fogboat/ui-tool/Notifications" type="NotifierOptions"  />
+
+
+## Notifier.notice方法
+`new Notifier().notice(message?: React.ReactNode, payload?: P, options?: NotifyItemOptions):string`
+<ArgTable  path="@fogboat/ui-tool/Notifications" type="NotifyItemOptions"  />
+
+
+### NotificationsProps
+<ArgTable  path="@fogboat/ui-tool/Notifications" type="NotificationsProps"  />
+
+
+
+
+
+# 使用示例
+<Canvas/>

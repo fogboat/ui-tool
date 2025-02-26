@@ -1,0 +1,12 @@
+.table{
+    width: 100%;
+}
+.required{
+    color: rgb(245, 60, 60);
+}
+.pre{
+    white-space: pre;
+}
+.tempType{
+    margin-right: 8px;
+}

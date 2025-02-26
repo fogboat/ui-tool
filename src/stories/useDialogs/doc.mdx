@@ -1,0 +1,63 @@
+import { Canvas, Meta, Title, Story, Controls, ArgTypes } from '@storybook/blocks';
+import stories from './stories';
+import ArgTable from "@/autoArgs"
+
+<Meta of={stories} />
+# useDialogs
+ <ArgTable  path="@fogboat/ui-tool/useDialogs" type="useDialogs"  />
+
+# DialogProps
+<ArgTable  path="@fogboat/ui-tool/useDialogs" type="DialogProps"  />
+
+# Provider
+<ArgTable  path="@fogboat/ui-tool/useDialogs" type="DialogProviderProps"  />
+
+
+# 使用
+
+## 1.提供Provider
+```tsx
+// 顶层使用DialogsProvider包裹
+function App() {
+    return <DialogsProvider><SomePage/></DialogsProvider>
+}
+```
+
+## 2.自定义对话框
+```tsx
+interface ConfirmDialogPayload{
+    title: string;
+}
+interface ConfirmDialogProps extends DialogProps<ConfirmDialogPayload, boolean> { }
+function ConfirmDialog({ open, payload, resolve, reject }: ConfirmDialogProps) {
+    // 调用resolve或reject才能关闭
+    return open ? <div>标题:{payload.title}
+        <button onClick={() => { resolve() }}>关闭</button>
+    </div> : null
+}
+```
+
+
+
+## 3.使用hook
+```tsx
+const SomePage = () => {
+    //  传入Dialog组件
+    const dialog = useDialogs(ConfirmDialog)
+    const onClick = async () => {
+        try {
+            // 同步方式打开对话框等待ConfirmDialog的resolve执行结果
+            const res = await dialog.open()
+            // 获得resolve传入的结果
+            console.log(res);
+        } catch (error) {
+
+        }
+    }
+    return <Button onClick={onClick}>对话框</Button>
+}
+```
+
+# 使用示例
+<Canvas/>
+
