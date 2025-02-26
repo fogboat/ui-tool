@@ -1,0 +1,1 @@
+import"./index-DvaquUY_.js";import"./jsx-runtime-D_zvdyIk.js";const r={parameters:{docs:{toc:{headingSelector:"h1, h2, h3",ignoreSelector:"#primary",title:"目录",disable:!1,unsafeTocbotOptions:{orderedList:!1}}},controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}}}};export{r as default};
