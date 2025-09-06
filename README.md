@@ -1,6 +1,6 @@
 # ui-tool 
 
-headless ui tool for
+headless ui tool for React
 
 ## Usage
 

@@ -67,7 +67,7 @@ interface DialogStackEntry<P, R> {
 
 export interface DialogProviderProps {
     children?: ReactNode;
-
+    domRoot?: HTMLElement;
     /**
      * 关闭后组件卸载时间ms 给关闭动画使用
      * @default 1000
@@ -81,7 +81,7 @@ export const DialogsContext = createContext<{
 } | null>(null);
 
 export function DialogsProvider(props: DialogProviderProps) {
-    const { children, unmountAfter = 1000 } = props;
+    const { children, unmountAfter = 1000, domRoot } = props;
     const [stack, setStack] = useState<DialogStackEntry<any, any>[]>([]);
     const keyPrefix = useId();
     const nextId = useRef(0);
@@ -149,28 +149,28 @@ export function DialogsProvider(props: DialogProviderProps) {
         () => ({ open: requestDialog, close: closeDialog }),
         [requestDialog, closeDialog]
     );
+    const stackItem = stack.map(({ key, open, Component, payload, promise }) => (
+        <Component
+            key={key}
+            payload={payload}
+            open={open}
+            resolve={(result) => {
+                closeDialog(promise, true, result);
+            }}
+            reject={(result) => {
+                closeDialog(promise, false, result);
+            }}
 
+
+        />
+    ))
     return (
         <DialogsContext.Provider value={contextValue}>
             {children}
-            {createPortal(
-                stack.map(({ key, open, Component, payload, promise }) => (
-                    <Component
-                        key={key}
-                        payload={payload}
-                        open={open}
-                        resolve={(result) => {
-                            closeDialog(promise, true, result);
-                        }}
-                        reject={(result) => {
-                            closeDialog(promise, false, result);
-                        }}
-
-
-                    />
-                )),
-                document.body
-            )}
+            {domRoot ? createPortal(
+                stackItem,
+                domRoot
+            ) : stackItem}
         </DialogsContext.Provider>
     );
 }
