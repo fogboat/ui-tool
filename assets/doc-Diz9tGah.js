@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as s}from"./index-DwOlTBOG.js";import{M as a,C as t}from"./index-B-5gzmRM.js";import l from"./stories-Deii5YdW.js";import{A as r}from"./index-DvaquUY_.js";import"./index-2yJIXLcc.js";import"./iframe-Cp87AP1v.js";import"./index-BIKhx-Qu.js";import"./index-Bn05qqr6.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";import"./Paper-B5SP4AOm.js";function i(n){const o={code:"code",h1:"h1",h2:"h2",pre:"pre",...s(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(a,{of:l}),`
+import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as s}from"./index-DwOlTBOG.js";import{M as a,C as t}from"./index-C-3tq6tw.js";import l from"./stories-D70S1MJz.js";import{A as r}from"./index-DvaquUY_.js";import"./index-2yJIXLcc.js";import"./iframe-Dy0kVe0V.js";import"./index-BIKhx-Qu.js";import"./index-Bn05qqr6.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";import"./Paper-Bare1qBP.js";function i(n){const o={code:"code",h1:"h1",h2:"h2",pre:"pre",...s(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(a,{of:l}),`
 `,e.jsx(o.h1,{id:"usedialogs",children:"useDialogs"}),`
 `,e.jsx(r,{doc:{name:"useDialogs",args:[{name:"Component",type:"DialogComponent<P, R>",desc:"dialog组件 props参数需要实现DialogProps",required:1},{name:"mergePayload",type:"M",desc:"传入dialog组件props.payload中 浅合并"}],desc:"同步写法方式调用对话框hook",temp:[["P={}",null],["R=undefined",null],["M=Partial<P>",null]]}}),`
 `,e.jsx(o.h1,{id:"dialogprops",children:"DialogProps"}),`
@@ -6,7 +6,7 @@ import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as s}from"
 result:传入关闭对话框 promise.resolve结果`,required:1},{name:"reject",type:"(result?: any) => void",desc:`promise.reject方式关闭对话框
 result:传入关闭对话框  promise.reject结果`,required:1}],desc:"自定义组件内部Props",temp:[["P=undefined","组件payload类型"],["R=void","组件关闭时获取的值类型"]]}}),`
 `,e.jsx(o.h1,{id:"provider",children:"Provider"}),`
-`,e.jsx(r,{doc:{name:"DialogProviderProps",args:[{name:"children",type:"ReactNode",desc:""},{name:"unmountAfter",type:"number",desc:"关闭后组件卸载时间ms 给关闭动画使用",default:"1000"}],desc:""}}),`
+`,e.jsx(r,{doc:{name:"DialogProviderProps",args:[{name:"children",type:"ReactNode",desc:""},{name:"domRoot",type:"HTMLElement",desc:""},{name:"unmountAfter",type:"number",desc:"关闭后组件卸载时间ms 给关闭动画使用",default:"1000"}],desc:""}}),`
 `,e.jsx(o.h1,{id:"使用",children:"使用"}),`
 `,e.jsx(o.h2,{id:"1提供provider",children:"1.提供Provider"}),`
 `,e.jsx(o.pre,{children:e.jsx(o.code,{className:"language-tsx",children:`// 顶层使用DialogsProvider包裹
